@@ -18,10 +18,11 @@
             --accent: #5b6aff;
             --accent2: #ff5b8a;
             --accent3: #5bffb8;
+            --warn: #f5a623;
             --text: #e8eaf2;
             --muted: #7880a0;
-            --check-yes: #3dd68c;
-            --check-no: #ff4f6a;
+            --ok: #3dd68c;
+            --bad: #ff4f6a;
             --radius: 10px;
         }
 
@@ -43,20 +44,20 @@
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            padding: 0 32px;
-            height: 60px;
+            padding: 0 28px;
+            height: 58px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 200;
         }
 
         .topbar-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
-            letter-spacing: .04em;
+            letter-spacing: .06em;
             color: var(--accent);
             font-family: 'Space Mono', monospace;
         }
@@ -65,53 +66,169 @@
             color: var(--text);
         }
 
-        /* ── GROUP SELECTOR ── */
-        .group-bar {
-            background: var(--surface2);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 32px;
+        .topbar-right {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
+        }
+
+        /* ── TABS ── */
+        .tabs-wrapper {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 28px;
+            overflow-x: auto;
+            position: sticky;
+            top: 58px;
+            z-index: 100;
+        }
+
+        .tabs-wrapper::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .tabs-wrapper::-webkit-scrollbar-thumb {
+            background: var(--border);
+        }
+
+        .tabs {
+            display: flex;
+            white-space: nowrap;
+        }
+
+        .tab {
+            padding: 13px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .05em;
+            color: var(--muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all .18s;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            user-select: none;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .tab:hover {
+            color: var(--text);
+        }
+
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-name {
+            line-height: 1;
+        }
+
+        .tab-badges {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .tab-pill {
+            padding: 1px 6px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 700;
+            background: var(--surface2);
+            color: var(--muted);
+            line-height: 1.6;
+            white-space: nowrap;
+        }
+
+        .tab.active .tab-pill {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .tab-pill.pill-team {
+            background: rgba(245, 166, 35, .18);
+            color: var(--warn);
+        }
+
+        .tab.active .tab-pill.pill-team {
+            background: var(--warn);
+            color: #000;
+        }
+
+        .tab-pill.pill-saved {
+            background: rgba(61, 214, 140, .18);
+            color: var(--ok);
+        }
+
+        /* ── CONTENT ── */
+        .content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 22px 60px;
+        }
+
+        /* ── GROUP NAME BAR ── */
+        .group-name-bar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
-        .group-bar label {
-            font-size: 12px;
-            color: var(--muted);
+        .group-name-bar label {
+            font-size: 11px;
             font-family: 'Space Mono', monospace;
             text-transform: uppercase;
             letter-spacing: .08em;
-            margin-right: 4px;
+            color: var(--muted);
+            flex-shrink: 0;
         }
 
         .group-input {
-            background: var(--surface);
+            flex: 1;
+            min-width: 180px;
+            background: var(--surface2);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 6px 14px;
-            border-radius: 6px;
+            padding: 8px 14px;
+            border-radius: 7px;
             font-family: 'Syne', sans-serif;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             outline: none;
             transition: border-color .2s;
-            width: 220px;
         }
 
         .group-input:focus {
             border-color: var(--accent);
         }
 
+        .group-input::placeholder {
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* ── BUTTONS ── */
         .btn {
-            padding: 7px 18px;
-            border-radius: 6px;
+            padding: 8px 18px;
+            border-radius: 7px;
             border: none;
             font-family: 'Syne', sans-serif;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             transition: all .15s;
+            white-space: nowrap;
         }
 
         .btn-primary {
@@ -145,97 +262,111 @@
             transform: translateY(-1px);
         }
 
-        /* ── TABS (temas) ── */
-        .tabs-wrapper {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 0 32px;
-            overflow-x: auto;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 0;
-            white-space: nowrap;
-        }
-
-        .tab {
-            padding: 14px 18px;
+        .btn-sm {
+            padding: 5px 12px;
             font-size: 12px;
-            font-weight: 700;
-            letter-spacing: .04em;
-            color: var(--muted);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all .2s;
-            font-family: 'Space Mono', monospace;
-            text-transform: uppercase;
-            user-select: none;
-            flex-shrink: 0;
         }
 
-        .tab:hover {
-            color: var(--text);
-        }
-
-        .tab.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .tab .tab-score {
-            display: inline-block;
-            background: var(--surface2);
-            border-radius: 30px;
-            padding: 1px 7px;
-            font-size: 10px;
-            margin-left: 6px;
-            color: var(--muted);
-        }
-
-        .tab.active .tab-score {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* ── MAIN CONTENT ── */
-        .content {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 32px 24px;
-        }
-
-        .panel {
-            display: none;
-        }
-
-        .panel.active {
-            display: block;
-        }
-
+        /* ── PANEL HEADER ── */
         .panel-header {
-            margin-bottom: 28px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
         }
+
+        .panel-header-left {}
 
         .panel-tag {
             font-family: 'Space Mono', monospace;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: .12em;
-            margin-bottom: 6px;
+            letter-spacing: .14em;
+            margin-bottom: 5px;
         }
 
         .panel-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.15;
         }
 
         .panel-sub {
             color: var(--muted);
-            font-size: 14px;
-            margin-top: 6px;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* ── SCORE STRIP ── */
+        .score-strip {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .score-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            transition: border-color .2s;
+        }
+
+        .score-card.highlight {
+            border-color: var(--accent);
+            background: rgba(91, 106, 255, .07);
+        }
+
+        .sc-label {
+            font-size: 10px;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .sc-val {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Space Mono', monospace;
+            line-height: 1;
+        }
+
+        .sc-max {
+            font-size: 12px;
+            color: var(--muted);
+            margin-left: 2px;
+        }
+
+        .sc-bar-wrap {
+            background: var(--surface2);
+            border-radius: 4px;
+            height: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .sc-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width .4s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .sc-bar.bar-content {
+            background: linear-gradient(90deg, var(--accent), #8b94ff);
+        }
+
+        .sc-bar.bar-team {
+            background: linear-gradient(90deg, var(--warn), #ffd166);
+        }
+
+        .sc-bar.bar-final {
+            background: linear-gradient(90deg, var(--accent3), #88ffda);
         }
 
         /* ── SECTION ── */
@@ -243,17 +374,17 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 22px 24px;
-            margin-bottom: 18px;
+            padding: 20px 22px;
+            margin-bottom: 16px;
         }
 
         .section-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .08em;
+            letter-spacing: .1em;
             color: var(--muted);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -263,28 +394,40 @@
             content: '';
             display: inline-block;
             width: 3px;
-            height: 14px;
-            background: var(--accent);
+            height: 13px;
             border-radius: 2px;
+        }
+
+        .section.content-section .section-title::before {
+            background: var(--accent);
+        }
+
+        .section.team-section .section-title::before {
+            background: var(--warn);
+        }
+
+        .section.notes-section .section-title::before {
+            background: var(--muted);
         }
 
         /* ── CHECKLIST ── */
         .checklist {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .check-item {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 12px 14px;
+            gap: 11px;
+            padding: 11px 13px;
             border-radius: 8px;
             border: 1px solid var(--border);
             background: var(--surface2);
-            transition: border-color .2s, background .2s;
             cursor: pointer;
+            transition: border-color .15s, background .15s;
+            user-select: none;
         }
 
         .check-item:hover {
@@ -292,136 +435,76 @@
         }
 
         .check-item.checked {
-            border-color: var(--check-yes);
-            background: rgba(61, 214, 140, .06);
+            border-color: var(--ok);
+            background: rgba(61, 214, 140, .05);
         }
 
-        .check-item.partial {
-            border-color: #f5a623;
-            background: rgba(245, 166, 35, .06);
+        .check-item.team-item:hover {
+            border-color: var(--warn);
+        }
+
+        .check-item.team-item.checked {
+            border-color: var(--warn);
+            background: rgba(245, 166, 35, .05);
         }
 
         .check-box {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
             border: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             margin-top: 1px;
-            transition: all .15s;
-            font-size: 12px;
+            font-size: 11px;
+            transition: all .12s;
         }
 
         .check-item.checked .check-box {
-            background: var(--check-yes);
-            border-color: var(--check-yes);
+            background: var(--ok);
+            border-color: var(--ok);
             color: #fff;
         }
 
-        .check-item.partial .check-box {
-            background: #f5a623;
-            border-color: #f5a623;
-            color: #fff;
+        .check-item.team-item.checked .check-box {
+            background: var(--warn);
+            border-color: var(--warn);
+            color: #000;
         }
 
         .check-label {
             flex: 1;
-            font-size: 14px;
-            line-height: 1.45;
-            user-select: none;
+            font-size: 13px;
+            line-height: 1.4;
         }
 
         .check-label strong {
             display: block;
             font-weight: 700;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .check-label span {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--muted);
         }
 
         .check-pts {
             font-family: 'Space Mono', monospace;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--muted);
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .check-item.checked .check-pts {
-            color: var(--check-yes);
+            color: var(--ok);
         }
 
-        /* ── SCORE WIDGET ── */
-        .score-widget {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 22px 24px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .score-circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            font-family: 'Space Mono', monospace;
-            flex-shrink: 0;
-            transition: border-color .3s;
-        }
-
-        .score-circle .val {
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .score-circle .max {
-            font-size: 10px;
-            color: var(--muted);
-        }
-
-        .score-info {
-            flex: 1;
-        }
-
-        .score-bar-wrap {
-            background: var(--surface2);
-            border-radius: 4px;
-            height: 8px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .score-bar {
-            height: 100%;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--accent3));
-            transition: width .4s cubic-bezier(.4, 0, .2, 1);
-        }
-
-        .score-label {
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 4px;
-        }
-
-        .score-grade {
-            font-size: 16px;
-            font-weight: 800;
+        .check-item.team-item.checked .check-pts {
+            color: var(--warn);
         }
 
         /* ── NOTES ── */
@@ -433,172 +516,156 @@
             color: var(--text);
             font-family: 'Syne', sans-serif;
             font-size: 13px;
-            padding: 12px 14px;
+            padding: 10px 13px;
             resize: vertical;
-            min-height: 80px;
+            min-height: 72px;
             outline: none;
             transition: border-color .2s;
-            margin-top: 10px;
+            display: block;
         }
 
         .notes-area:focus {
             border-color: var(--accent);
         }
 
-        /* ── SUMMARY PANEL ── */
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-
-        .summary-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 18px;
-            transition: border-color .2s;
-        }
-
-        .summary-card:hover {
-            border-color: var(--accent);
-        }
-
-        .summary-card .sc-name {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            color: var(--muted);
-            font-family: 'Space Mono', monospace;
-            margin-bottom: 8px;
-        }
-
-        .summary-card .sc-score {
-            font-size: 28px;
-            font-weight: 800;
-            font-family: 'Space Mono', monospace;
-            line-height: 1;
-        }
-
-        .summary-card .sc-max {
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        .final-score-box {
-            background: linear-gradient(135deg, rgba(91, 106, 255, .15), rgba(91, 255, 184, .08));
-            border: 1px solid var(--accent);
-            border-radius: var(--radius);
-            padding: 28px 30px;
+        /* ── DIVIDER ── */
+        .section-divider {
             display: flex;
             align-items: center;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .final-num {
-            font-family: 'Space Mono', monospace;
-            font-size: 52px;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--accent3);
-        }
-
-        .final-info {
-            flex: 1;
-        }
-
-        .final-info h2 {
-            font-size: 20px;
-            font-weight: 800;
-        }
-
-        .final-info p {
+            gap: 12px;
+            margin: 20px 0 16px;
             color: var(--muted);
-            font-size: 14px;
-            margin-top: 4px;
-        }
-
-        .all-groups-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        .all-groups-table th {
-            background: var(--surface2);
-            padding: 10px 14px;
-            text-align: left;
-            font-family: 'Space Mono', monospace;
             font-size: 10px;
+            font-family: 'Space Mono', monospace;
             text-transform: uppercase;
-            letter-spacing: .08em;
-            color: var(--muted);
-            border-bottom: 1px solid var(--border);
+            letter-spacing: .1em;
         }
 
-        .all-groups-table td {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border);
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
         }
 
-        .all-groups-table tr:hover td {
-            background: var(--surface2);
-        }
-
+        /* ── BADGE ── */
         .badge {
             display: inline-block;
-            padding: 2px 9px;
+            padding: 2px 8px;
             border-radius: 30px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             font-family: 'Space Mono', monospace;
         }
 
         .badge-green {
             background: rgba(61, 214, 140, .15);
-            color: var(--check-yes);
+            color: var(--ok);
         }
 
         .badge-yellow {
             background: rgba(245, 166, 35, .15);
-            color: #f5a623;
+            color: var(--warn);
         }
 
         .badge-red {
             background: rgba(255, 79, 106, .15);
-            color: var(--check-no);
+            color: var(--bad);
         }
 
+        .badge-blue {
+            background: rgba(91, 106, 255, .15);
+            color: var(--accent);
+        }
+
+        /* ── RESUMO TABLE ── */
+        .resumo-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .resumo-table-wrap {
+            overflow-x: auto;
+        }
+
+        .resumo-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .resumo-table th {
+            background: var(--surface2);
+            padding: 10px 14px;
+            text-align: left;
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .resumo-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(42, 47, 66, .5);
+            white-space: nowrap;
+        }
+
+        .resumo-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .resumo-table tr:hover td {
+            background: rgba(28, 32, 48, .6);
+        }
+
+        .resumo-table td.col-name {
+            font-weight: 700;
+            min-width: 160px;
+        }
+
+        .resumo-table td.col-final {
+            font-weight: 800;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+        }
+
+        /* ── EMPTY STATE ── */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: var(--muted);
             font-size: 14px;
+            line-height: 1.7;
         }
 
-        .empty-state .icon {
-            font-size: 40px;
-            margin-bottom: 12px;
+        .empty-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
         }
 
-        /* Toast */
+        /* ── TOAST ── */
         .toast {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 22px;
+            right: 22px;
             background: var(--surface);
             border: 1px solid var(--accent3);
             color: var(--accent3);
-            padding: 12px 20px;
+            padding: 11px 18px;
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
-            z-index: 999;
+            z-index: 9999;
             opacity: 0;
-            transform: translateY(10px);
-            transition: all .3s;
+            transform: translateY(8px);
+            transition: all .25s;
             pointer-events: none;
         }
 
@@ -607,10 +674,27 @@
             transform: translateY(0);
         }
 
-        /* Scrollbar */
+        /* ── DELETE BTN ── */
+        .del-btn {
+            background: transparent;
+            border: none;
+            color: var(--bad);
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: .6;
+            transition: opacity .15s;
+        }
+
+        .del-btn:hover {
+            opacity: 1;
+            background: rgba(255, 79, 106, .1);
+        }
+
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
 
         ::-webkit-scrollbar-track {
@@ -629,21 +713,9 @@
     <!-- TOP BAR -->
     <div class="topbar">
         <div class="topbar-title">AVALIADOR<span> — LÓGICA DE PROGRAMAÇÃO</span></div>
-        <button class="btn btn-export" onclick="exportExcel()">⬇ Exportar Excel</button>
-    </div>
-
-    <!-- GROUP SELECTOR -->
-    <div class="group-bar">
-        <label>GRUPO:</label>
-        <input class="group-input" id="groupName" type="text" placeholder="Nome do grupo / alunos…"
-            oninput="onGroupChange()" />
-        <button class="btn btn-primary" onclick="saveGroup()">✓ Salvar Avaliação</button>
-        <button class="btn btn-danger" onclick="clearCurrent()">✕ Limpar</button>
-        <select id="groupSelect"
-            style="background:var(--surface);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:13px;cursor:pointer;"
-            onchange="loadGroup(this.value)">
-            <option value="">— Carregar grupo salvo —</option>
-        </select>
+        <div class="topbar-right">
+            <button class="btn btn-export" onclick="exportExcel()">⬇ Exportar Excel</button>
+        </div>
     </div>
 
     <!-- TABS -->
@@ -658,435 +730,402 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // ════════════════════════════════════════════
-        // DATA DEFINITION
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  DATA
+        // ══════════════════════════════════════════════════════
 
         const THEMES = [
             {
-                id: 'tema1',
-                tag: 'Tema 1',
-                title: 'Fundamentos da Lógica',
-                sub: 'Introdução à Lógica de Programação',
-                maxScore: 10,
+                id: 'tema1', tag: 'Grupo 1', title: 'Fundamentos da Lógica', sub: 'Introdução à Lógica de Programação',
                 criteria: [
-                    { id: 't1_conceito', label: 'Conceito de Lógica de Programação', desc: 'Definição clara e própria do conceito', pts: 0.8 },
-                    { id: 't1_import', label: 'Importância no desenvolvimento de software', desc: 'Relaciona lógica com problemas reais', pts: 0.8 },
-                    { id: 't1_diff', label: 'Diferença entre algoritmo e programa', desc: 'Distinção correta com exemplo', pts: 0.8 },
-                    { id: 't1_cot', label: 'Exemplos do cotidiano', desc: 'Ao menos 2 exemplos práticos da vida real', pts: 0.6 },
-                    { id: 't1_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Pseudocódigo correto e legível', pts: 1.5 },
-                    { id: 't1_python', label: 'Exemplo em Python', desc: 'Código Python funcional e comentado', pts: 1.5 },
-                    { id: 't1_concl', label: 'Conclusão do grupo', desc: 'Reflexão e síntese do tema', pts: 0.5 },
-                    { id: 't1_ref', label: 'Referências bibliográficas', desc: 'Ao menos 2 fontes confiáveis citadas', pts: 0.5 },
+                    { id: 'c1', label: 'Conceito de Lógica de Programação', desc: 'Definição clara e com palavras próprias', pts: 0.8 },
+                    { id: 'c2', label: 'Importância no desenvolvimento de software', desc: 'Relaciona lógica com problemas reais', pts: 0.8 },
+                    { id: 'c3', label: 'Diferença entre algoritmo e programa', desc: 'Distinção correta com exemplo', pts: 0.8 },
+                    { id: 'c4', label: 'Exemplos do cotidiano (mín. 2)', desc: 'Situações práticas da vida real', pts: 0.6 },
+                    { id: 'c5', label: 'Exemplo em pseudocódigo', desc: 'Pseudocódigo correto e legível', pts: 1.5 },
+                    { id: 'c6', label: 'Exemplo em Python', desc: 'Código Python funcional e comentado', pts: 1.5 },
+                    { id: 'c7', label: 'Conclusão do grupo', desc: 'Reflexão e síntese do tema', pts: 0.5 },
+                    { id: 'c8', label: 'Referências bibliográficas (mín. 2)', desc: 'Fontes confiáveis e bem citadas', pts: 0.5 },
                 ]
             },
             {
-                id: 'tema2',
-                tag: 'Tema 2',
-                title: 'Algoritmos e Pseudocódigo',
-                sub: 'Construção de Algoritmos',
-                maxScore: 10,
+                id: 'tema2', tag: 'Grupo 2', title: 'Algoritmos e Pseudocódigo', sub: 'Construção de Algoritmos',
                 criteria: [
-                    { id: 't2_conceito', label: 'Conceito de algoritmo', desc: 'Definição correta e detalhada', pts: 0.8 },
-                    { id: 't2_eps', label: 'Entrada, processamento e saída', desc: 'Explica as 3 etapas com exemplos', pts: 1.0 },
-                    { id: 't2_caract', label: 'Características de um algoritmo', desc: 'Finitude, determinismo, eficácia etc.', pts: 0.8 },
-                    { id: 't2_pseudo', label: 'O que é pseudocódigo', desc: 'Conceito e diferença de linguagem de programação', pts: 0.9 },
-                    { id: 't2_ex_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Pseudocódigo correto e bem estruturado', pts: 1.5 },
-                    { id: 't2_python', label: 'Exemplo em Python', desc: 'Código Python funcional e comentado', pts: 1.5 },
-                    { id: 't2_concl', label: 'Conclusão do grupo', desc: 'Reflexão sobre o tema', pts: 0.5 },
-                    { id: 't2_ref', label: 'Referências bibliográficas', desc: 'Fontes confiáveis e variadas', pts: 0.5 },
+                    { id: 'c1', label: 'Conceito de algoritmo', desc: 'Definição correta e detalhada', pts: 0.8 },
+                    { id: 'c2', label: 'Entrada, Processamento e Saída', desc: 'Explica as 3 etapas com exemplos', pts: 1.0 },
+                    { id: 'c3', label: 'Características de um algoritmo', desc: 'Finitude, determinismo, eficácia etc.', pts: 0.8 },
+                    { id: 'c4', label: 'O que é pseudocódigo', desc: 'Conceito e diferença de linguagem de programação', pts: 0.9 },
+                    { id: 'c5', label: 'Exemplo em pseudocódigo', desc: 'Pseudocódigo correto e bem estruturado', pts: 1.5 },
+                    { id: 'c6', label: 'Exemplo em Python', desc: 'Código Python funcional e comentado', pts: 1.5 },
+                    { id: 'c7', label: 'Conclusão do grupo', desc: 'Reflexão sobre o tema', pts: 0.5 },
+                    { id: 'c8', label: 'Referências bibliográficas', desc: 'Fontes confiáveis e variadas', pts: 0.5 },
                 ]
             },
             {
-                id: 'tema3',
-                tag: 'Tema 3',
-                title: 'Fluxogramas',
-                sub: 'Representação Visual de Algoritmos',
-                maxScore: 10,
+                id: 'tema3', tag: 'Grupo 3', title: 'Fluxogramas', sub: 'Representação Visual de Algoritmos',
                 criteria: [
-                    { id: 't3_def', label: 'O que são fluxogramas', desc: 'Definição e propósito', pts: 0.8 },
-                    { id: 't3_simb', label: 'Símbolos utilizados', desc: 'Apresenta e explica os principais símbolos', pts: 1.2 },
-                    { id: 't3_fluxo', label: 'Fluxo de execução', desc: 'Demonstra ordem e direção das setas', pts: 0.8 },
-                    { id: 't3_dec', label: 'Decisões e repetições no fluxograma', desc: 'Uso correto de losangos e loops', pts: 1.2 },
-                    { id: 't3_ex_flux', label: 'Fluxograma desenhado/criado', desc: 'Apresenta fluxograma próprio e legível', pts: 1.5 },
-                    { id: 't3_python', label: 'Exemplo em Python', desc: 'Código correspondente ao fluxograma', pts: 1.0 },
-                    { id: 't3_concl', label: 'Conclusão do grupo', desc: 'Reflexão sobre utilidade dos fluxogramas', pts: 0.5 },
-                    { id: 't3_ref', label: 'Referências bibliográficas', desc: 'Fontes confiáveis citadas', pts: 0.5 },
+                    { id: 'c1', label: 'O que são fluxogramas', desc: 'Definição e propósito', pts: 0.8 },
+                    { id: 'c2', label: 'Símbolos utilizados', desc: 'Apresenta e explica os principais símbolos', pts: 1.2 },
+                    { id: 'c3', label: 'Fluxo de execução', desc: 'Demonstra ordem e direção das setas', pts: 0.8 },
+                    { id: 'c4', label: 'Decisões e repetições no fluxograma', desc: 'Uso correto de losangos e loops', pts: 1.2 },
+                    { id: 'c5', label: 'Fluxograma próprio desenhado/criado', desc: 'Apresenta fluxograma legível e correto', pts: 1.5 },
+                    { id: 'c6', label: 'Exemplo em Python', desc: 'Código correspondente ao fluxograma', pts: 1.0 },
+                    { id: 'c7', label: 'Conclusão do grupo', desc: 'Reflexão sobre utilidade dos fluxogramas', pts: 0.5 },
+                    { id: 'c8', label: 'Referências bibliográficas', desc: 'Fontes confiáveis citadas', pts: 0.5 },
                 ]
             },
             {
-                id: 'tema4',
-                tag: 'Tema 4',
-                title: 'Variáveis e Operadores',
-                sub: 'Manipulação de Dados',
-                maxScore: 10,
+                id: 'tema4', tag: 'Grupo 4', title: 'Variáveis e Operadores', sub: 'Manipulação de Dados',
                 criteria: [
-                    { id: 't4_var', label: 'Conceito de variável', desc: 'Definição, nomenclatura e declaração', pts: 0.8 },
-                    { id: 't4_tipos', label: 'Tipos de dados', desc: 'int, float, str, bool com exemplos', pts: 1.0 },
-                    { id: 't4_arit', label: 'Operadores aritméticos', desc: '+, -, *, /, //, %, ** com exemplos', pts: 0.8 },
-                    { id: 't4_rel', label: 'Operadores relacionais', desc: '==, !=, >, <, >=, <= com exemplos', pts: 0.8 },
-                    { id: 't4_log', label: 'Operadores lógicos', desc: 'and, or, not com exemplos', pts: 0.8 },
-                    { id: 't4_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Uso de variáveis e operadores', pts: 1.0 },
-                    { id: 't4_python', label: 'Exemplo em Python', desc: 'Código funcional usando todos os operadores', pts: 1.5 },
-                    { id: 't4_concl', label: 'Conclusão do grupo', desc: 'Síntese e reflexão', pts: 0.5 },
-                    { id: 't4_ref', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.5 },
+                    { id: 'c1', label: 'Conceito de variável', desc: 'Definição, nomenclatura e declaração', pts: 0.7 },
+                    { id: 'c2', label: 'Tipos de dados (int, float, str, bool)', desc: 'Explica cada tipo com exemplos', pts: 0.9 },
+                    { id: 'c3', label: 'Operadores aritméticos', desc: '+, -, *, /, //, %, ** com exemplos', pts: 0.8 },
+                    { id: 'c4', label: 'Operadores relacionais', desc: '==, !=, >, <, >=, <= com exemplos', pts: 0.8 },
+                    { id: 'c5', label: 'Operadores lógicos', desc: 'and, or, not com exemplos', pts: 0.8 },
+                    { id: 'c6', label: 'Exemplo em pseudocódigo', desc: 'Uso de variáveis e operadores', pts: 1.0 },
+                    { id: 'c7', label: 'Exemplo em Python', desc: 'Código funcional usando todos os operadores', pts: 1.5 },
+                    { id: 'c8', label: 'Conclusão do grupo', desc: 'Síntese e reflexão', pts: 0.5 },
+                    { id: 'c9', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.5 },
                 ]
             },
             {
-                id: 'tema5',
-                tag: 'Tema 5',
-                title: 'Estruturas Condicionais',
-                sub: 'Tomada de Decisão em Programação',
-                maxScore: 10,
+                id: 'tema5', tag: 'Grupo 5', title: 'Estruturas Condicionais', sub: 'Tomada de Decisão em Programação',
                 criteria: [
-                    { id: 't5_if', label: 'IF — estrutura e uso', desc: 'Conceito e quando usar', pts: 0.8 },
-                    { id: 't5_else', label: 'ELSE — estrutura e uso', desc: 'Complemento do if com exemplo', pts: 0.8 },
-                    { id: 't5_elif', label: 'ELIF — estrutura e uso', desc: 'Múltiplas condições com elif', pts: 0.8 },
-                    { id: 't5_cond', label: 'Condições simples e compostas', desc: 'Diferença e exemplos de cada', pts: 1.0 },
-                    { id: 't5_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Lógica condicional bem estruturada', pts: 1.5 },
-                    { id: 't5_python', label: 'Exemplo em Python', desc: 'Código Python usando if/elif/else', pts: 1.5 },
-                    { id: 't5_concl', label: 'Conclusão do grupo', desc: 'Reflexão sobre tomada de decisão', pts: 0.5 },
-                    { id: 't5_ref', label: 'Referências bibliográficas', desc: 'Fontes citadas corretamente', pts: 0.5 },
+                    { id: 'c1', label: 'Estrutura IF — conceito e uso', desc: 'Quando usar, sintaxe e exemplo', pts: 0.8 },
+                    { id: 'c2', label: 'Estrutura ELSE — conceito e uso', desc: 'Complemento do if com exemplo', pts: 0.8 },
+                    { id: 'c3', label: 'Estrutura ELIF — conceito e uso', desc: 'Múltiplas condições com elif', pts: 0.8 },
+                    { id: 'c4', label: 'Condições simples e compostas', desc: 'Diferença e exemplos de cada', pts: 1.0 },
+                    { id: 'c5', label: 'Exemplo em pseudocódigo', desc: 'Lógica condicional bem estruturada', pts: 1.5 },
+                    { id: 'c6', label: 'Exemplo em Python', desc: 'Código Python usando if/elif/else', pts: 1.5 },
+                    { id: 'c7', label: 'Conclusão do grupo', desc: 'Reflexão sobre tomada de decisão', pts: 0.6 },
+                    { id: 'c8', label: 'Referências bibliográficas', desc: 'Fontes citadas corretamente', pts: 0.5 },
                 ]
             },
             {
-                id: 'tema6',
-                tag: 'Tema 6',
-                title: 'Estruturas de Repetição',
-                sub: 'Laços de Repetição',
-                maxScore: 10,
+                id: 'tema6', tag: 'Grupo 6', title: 'Estruturas de Repetição', sub: 'Laços de Repetição',
                 criteria: [
-                    { id: 't6_for', label: 'FOR — conceito e uso', desc: 'Laço determinístico com range/lista', pts: 0.9 },
-                    { id: 't6_while', label: 'WHILE — conceito e uso', desc: 'Laço com condição de parada', pts: 0.9 },
-                    { id: 't6_ctrl', label: 'Repetições controladas', desc: 'break, continue com explicação', pts: 0.8 },
-                    { id: 't6_inf', label: 'Loops infinitos', desc: 'O que são, riscos e como evitar', pts: 0.8 },
-                    { id: 't6_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Uso de for e while no pseudocódigo', pts: 1.1 },
-                    { id: 't6_python', label: 'Exemplo em Python', desc: 'Código Python com for e while', pts: 1.5 },
-                    { id: 't6_concl', label: 'Conclusão do grupo', desc: 'Reflexão sobre laços de repetição', pts: 0.5 },
-                    { id: 't6_ref', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.5 },
+                    { id: 'c1', label: 'FOR — conceito e uso', desc: 'Laço determinístico com range/lista', pts: 0.9 },
+                    { id: 'c2', label: 'WHILE — conceito e uso', desc: 'Laço com condição de parada', pts: 0.9 },
+                    { id: 'c3', label: 'Repetições controladas (break/continue)', desc: 'Explica break e continue com exemplos', pts: 0.8 },
+                    { id: 'c4', label: 'Loops infinitos', desc: 'O que são, riscos e como evitar', pts: 0.8 },
+                    { id: 'c5', label: 'Exemplo em pseudocódigo', desc: 'Uso de for e while no pseudocódigo', pts: 1.1 },
+                    { id: 'c6', label: 'Exemplo em Python', desc: 'Código Python com for e while', pts: 1.5 },
+                    { id: 'c7', label: 'Conclusão do grupo', desc: 'Reflexão sobre laços de repetição', pts: 0.5 },
+                    { id: 'c8', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.5 },
                 ]
             },
             {
-                id: 'tema7',
-                tag: 'Tema 7',
-                title: 'Listas',
-                sub: 'Armazenamento de Múltiplos Valores',
-                maxScore: 10,
+                id: 'tema7', tag: 'Grupo 7', title: 'Listas', sub: 'Armazenamento de Múltiplos Valores',
                 criteria: [
-                    { id: 't7_def', label: 'O que são listas', desc: 'Conceito, criação e acesso por índice', pts: 0.9 },
-                    { id: 't7_ins', label: 'Inserção e remoção de dados', desc: 'append, remove, pop, insert', pts: 0.9 },
-                    { id: 't7_perc', label: 'Percorrer listas', desc: 'for em lista, índice, enumerate', pts: 1.0 },
-                    { id: 't7_ord', label: 'Ordenação simples', desc: 'sort, sorted, reverse com exemplos', pts: 0.8 },
-                    { id: 't7_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Manipulação de lista no pseudocódigo', pts: 1.0 },
-                    { id: 't7_python', label: 'Exemplo em Python', desc: 'Código Python com listas e suas operações', pts: 1.5 },
-                    { id: 't7_concl', label: 'Conclusão do grupo', desc: 'Reflexão e síntese do tema', pts: 0.5 },
-                    { id: 't7_ref', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.5 },
+                    { id: 'c1', label: 'O que são listas', desc: 'Conceito, criação e acesso por índice', pts: 0.9 },
+                    { id: 'c2', label: 'Inserção e remoção de dados', desc: 'append, remove, pop, insert com exemplos', pts: 0.9 },
+                    { id: 'c3', label: 'Percorrer listas', desc: 'for em lista, índice, enumerate', pts: 1.0 },
+                    { id: 'c4', label: 'Ordenação simples', desc: 'sort, sorted, reverse com exemplos', pts: 0.8 },
+                    { id: 'c5', label: 'Exemplo em pseudocódigo', desc: 'Manipulação de lista no pseudocódigo', pts: 1.0 },
+                    { id: 'c6', label: 'Exemplo em Python', desc: 'Código Python com listas e suas operações', pts: 1.5 },
+                    { id: 'c7', label: 'Conclusão do grupo', desc: 'Reflexão e síntese do tema', pts: 0.5 },
+                    { id: 'c8', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.4 },
                 ]
             },
             {
-                id: 'tema8',
-                tag: 'Tema 8',
-                title: 'Funções e Boas Práticas',
-                sub: 'Organização e Reutilização de Código',
-                maxScore: 10,
+                id: 'tema8', tag: 'Grupo 8', title: 'Funções e Boas Práticas', sub: 'Organização e Reutilização de Código',
                 criteria: [
-                    { id: 't8_func', label: 'O que são funções', desc: 'Conceito de def, chamada de função', pts: 0.8 },
-                    { id: 't8_param', label: 'Parâmetros', desc: 'Parâmetros, argumentos e padrões', pts: 0.8 },
-                    { id: 't8_ret', label: 'Retorno', desc: 'return e uso do valor retornado', pts: 0.8 },
-                    { id: 't8_mod', label: 'Modularização', desc: 'Divisão em funções para reutilização', pts: 0.8 },
-                    { id: 't8_coment', label: 'Comentários e docstrings', desc: '# e """ comentários no código', pts: 0.6 },
-                    { id: 't8_ident', label: 'Identação', desc: 'Regras e importância do recuo no Python', pts: 0.6 },
-                    { id: 't8_pseudo', label: 'Exemplo em pseudocódigo', desc: 'Função bem definida no pseudocódigo', pts: 1.0 },
-                    { id: 't8_python', label: 'Exemplo em Python', desc: 'Funções completas com parâmetros e retorno', pts: 1.5 },
-                    { id: 't8_concl', label: 'Conclusão do grupo', desc: 'Reflexão sobre boas práticas', pts: 0.5 },
-                    { id: 't8_ref', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.3 },
+                    { id: 'c1', label: 'O que são funções (def)', desc: 'Conceito de def e chamada de função', pts: 0.7 },
+                    { id: 'c2', label: 'Parâmetros e argumentos', desc: 'Parâmetros, argumentos e valores padrão', pts: 0.7 },
+                    { id: 'c3', label: 'Retorno (return)', desc: 'return e uso do valor retornado', pts: 0.7 },
+                    { id: 'c4', label: 'Modularização', desc: 'Divisão em funções para reutilização', pts: 0.7 },
+                    { id: 'c5', label: 'Comentários e docstrings', desc: '# e """ comentários explicando o código', pts: 0.6 },
+                    { id: 'c6', label: 'Identação', desc: 'Regras e importância do recuo no Python', pts: 0.6 },
+                    { id: 'c7', label: 'Exemplo em pseudocódigo', desc: 'Função bem definida no pseudocódigo', pts: 1.0 },
+                    { id: 'c8', label: 'Exemplo em Python', desc: 'Funções completas com parâmetros e retorno', pts: 1.5 },
+                    { id: 'c9', label: 'Conclusão do grupo', desc: 'Reflexão sobre boas práticas', pts: 0.5 },
+                    { id: 'c10', label: 'Referências bibliográficas', desc: 'Fontes confiáveis', pts: 0.3 },
                 ]
             }
         ];
 
-        // Teamwork criteria (applies to all groups, worth up to 10 pts)
+        // Critérios de equipe (embutidos em cada aba de tema)
         const TEAM_CRITERIA = [
-            { id: 'team_part', label: 'Participação de todos os integrantes', desc: 'Todos falaram durante a apresentação', pts: 2.0 },
-            { id: 'team_tempo', label: 'Tempo de apresentação (10–15 min)', desc: 'Dentro do tempo estipulado', pts: 1.5 },
-            { id: 'team_clar', label: 'Clareza e objetividade', desc: 'Explicações claras e bem estruturadas', pts: 1.5 },
-            { id: 'team_demo', label: 'Demonstração prática dos exemplos', desc: 'Rodou o código ao vivo ou mostrou resultado', pts: 2.0 },
-            { id: 'team_dom', label: 'Domínio do conteúdo', desc: 'Respondeu perguntas com segurança', pts: 2.0 },
-            { id: 'team_org', label: 'Organização do material', desc: 'Apresentação visual organizada (slides, quadro etc)', pts: 1.0 },
+            { id: 't1', label: 'Participação de todos os integrantes', desc: 'Todos falaram durante a apresentação', pts: 2.0 },
+            { id: 't2', label: 'Tempo de apresentação (10–15 min)', desc: 'Dentro do tempo estipulado', pts: 1.5 },
+            { id: 't3', label: 'Clareza e objetividade', desc: 'Explicações claras e bem estruturadas', pts: 1.5 },
+            { id: 't4', label: 'Demonstração prática dos exemplos', desc: 'Rodou o código ao vivo ou mostrou resultado', pts: 2.0 },
+            { id: 't5', label: 'Domínio do conteúdo', desc: 'Respondeu perguntas com segurança', pts: 2.0 },
+            { id: 't6', label: 'Organização do material', desc: 'Apresentação visual organizada (slides, quadro etc)', pts: 1.0 },
         ];
 
-        // ════════════════════════════════════════════
-        // STATE
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  STATE
+        // ══════════════════════════════════════════════════════
 
-        // Avaliations per group: { groupName: { tema_id: { criteria_id: bool, notes: str }, team: {...} } }
-        let savedGroups = JSON.parse(localStorage.getItem('lp_groups') || '{}');
-        let current = {
-            groupName: '',
-            data: buildEmptyData()
-        };
+        // Storage: { tema_id: { groupName, content: {checks, notes}, team: {checks, notes} } }
+        let saved = JSON.parse(localStorage.getItem('lp_v2') || '{}');
         let activeTab = 'tema1';
 
-        function buildEmptyData() {
-            const d = {};
-            THEMES.forEach(t => {
-                d[t.id] = { checks: {}, notes: '' };
-                t.criteria.forEach(c => d[t.id].checks[c.id] = false);
+        // Working state per theme (unsaved)
+        let working = {};
+        THEMES.forEach(t => {
+            working[t.id] = {
+                groupName: saved[t.id]?.groupName || '',
+                content: { checks: {}, notes: '' },
+                team: { checks: {}, notes: '' }
+            };
+            t.criteria.forEach(c => {
+                working[t.id].content.checks[c.id] = saved[t.id]?.content?.checks?.[c.id] || false;
             });
-            d['team'] = { checks: {}, notes: '' };
-            TEAM_CRITERIA.forEach(c => d['team'].checks[c.id] = false);
-            return d;
-        }
+            TEAM_CRITERIA.forEach(c => {
+                working[t.id].team.checks[c.id] = saved[t.id]?.team?.checks?.[c.id] || false;
+            });
+            working[t.id].content.notes = saved[t.id]?.content?.notes || '';
+            working[t.id].team.notes = saved[t.id]?.team?.notes || '';
+        });
 
-        // ════════════════════════════════════════════
-        // SCORING
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  SCORING
+        // ══════════════════════════════════════════════════════
 
-        function calcThemeScore(themeId) {
+        function calcContent(themeId) {
             const theme = THEMES.find(t => t.id === themeId);
-            if (!theme) return { score: 0, max: 10 };
-            const checks = current.data[themeId]?.checks || {};
-            let score = 0;
-            theme.criteria.forEach(c => { if (checks[c.id]) score += c.pts; });
-            return { score: Math.min(score, 10), max: 10 };
+            const checks = working[themeId].content.checks;
+            let s = 0;
+            theme.criteria.forEach(c => { if (checks[c.id]) s += c.pts; });
+            return +Math.min(s, 10).toFixed(2);
         }
 
-        function calcTeamScore() {
-            const checks = current.data['team']?.checks || {};
-            let score = 0;
-            TEAM_CRITERIA.forEach(c => { if (checks[c.id]) score += c.pts; });
-            return { score: Math.min(score, 10), max: 10 };
+        function calcTeam(themeId) {
+            const checks = working[themeId].team.checks;
+            let s = 0;
+            TEAM_CRITERIA.forEach(c => { if (checks[c.id]) s += c.pts; });
+            return +Math.min(s, 10).toFixed(2);
         }
 
-        function calcFinalScore() {
-            let contentAvg = 0;
-            THEMES.forEach(t => { contentAvg += calcThemeScore(t.id).score; });
-            contentAvg = contentAvg / THEMES.length;
-            const teamScore = calcTeamScore().score;
-            // 70% content, 30% teamwork
-            return +(contentAvg * 0.7 + teamScore * 0.3).toFixed(2);
+        function calcFinal(themeId) {
+            return +(calcContent(themeId) * 0.7 + calcTeam(themeId) * 0.3).toFixed(2);
         }
+
+        function isSaved(themeId) { return !!saved[themeId]; }
 
         function getGrade(score) {
             if (score >= 9) return { label: 'Excelente', cls: 'badge-green' };
             if (score >= 7) return { label: 'Bom', cls: 'badge-green' };
             if (score >= 5) return { label: 'Regular', cls: 'badge-yellow' };
-            return { label: 'Insuficiente', cls: 'badge-red' };
+            return { label: 'Insuf.', cls: 'badge-red' };
         }
 
-        // ════════════════════════════════════════════
-        // RENDER
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  RENDER
+        // ══════════════════════════════════════════════════════
 
         function renderTabs() {
-            const tabs = document.getElementById('tabs');
-            const allTabs = [...THEMES.map(t => ({ id: t.id, tag: t.tag })), { id: 'team', tag: 'Equipe' }, { id: 'resumo', tag: 'Resumo' }];
-            tabs.innerHTML = allTabs.map(t => {
-                let scoreHtml = '';
-                if (t.id !== 'resumo') {
-                    const s = t.id === 'team' ? calcTeamScore() : calcThemeScore(t.id);
-                    scoreHtml = `<span class="tab-score">${s.score.toFixed(1)}</span>`;
+            const el = document.getElementById('tabs');
+            const allTabs = [...THEMES.map(t => t.id), 'resumo'];
+            el.innerHTML = allTabs.map(id => {
+                if (id === 'resumo') {
+                    const cnt = Object.keys(saved).length;
+                    return `<div class="tab${id === activeTab ? ' active' : ''}" onclick="switchTab('${id}')">
+        <div class="tab-name">Resumo</div>
+        <div class="tab-badges"><span class="tab-pill">${cnt} grupo${cnt !== 1 ? 's' : ''}</span></div>
+      </div>`;
                 }
-                return `<div class="tab${t.id === activeTab ? ' active' : ''}" onclick="switchTab('${t.id}')">${t.tag}${scoreHtml}</div>`;
+                const t = THEMES.find(x => x.id === id);
+                const fin = calcFinal(id);
+                const sv = isSaved(id);
+                return `<div class="tab${id === activeTab ? ' active' : ''}" onclick="switchTab('${id}')">
+      <div class="tab-name">${t.tag}</div>
+      <div class="tab-badges">
+        <span class="tab-pill">${fin.toFixed(1)}</span>
+        ${sv ? '<span class="tab-pill pill-saved">✓</span>' : ''}
+      </div>
+    </div>`;
             }).join('');
         }
 
         function renderContent() {
-            const content = document.getElementById('content');
-            if (activeTab === 'team') {
-                content.innerHTML = renderTeamPanel();
-            } else if (activeTab === 'resumo') {
-                content.innerHTML = renderResumoPanel();
-            } else {
-                const theme = THEMES.find(t => t.id === activeTab);
-                content.innerHTML = renderThemePanel(theme);
-            }
-            attachCheckEvents();
+            const el = document.getElementById('content');
+            if (activeTab === 'resumo') { el.innerHTML = renderResumo(); }
+            else { el.innerHTML = renderTheme(THEMES.find(t => t.id === activeTab)); }
+            attachEvents();
         }
 
-        function renderThemePanel(theme) {
-            const { score, max } = calcThemeScore(theme.id);
-            const pct = (score / max) * 100;
-            const grade = getGrade(score);
-            const checks = current.data[theme.id]?.checks || {};
-            const notes = current.data[theme.id]?.notes || '';
+        function renderTheme(theme) {
+            const tid = theme.id;
+            const cs = calcContent(tid);
+            const ts = calcTeam(tid);
+            const fin = calcFinal(tid);
+            const grade = getGrade(fin);
+            const cc = working[tid].content.checks;
+            const tc = working[tid].team.checks;
+            const gName = working[tid].groupName;
+            const sv = isSaved(tid);
 
             return `
-  <div class="panel active">
-    <div class="panel-header">
+  <div class="group-name-bar">
+    <label>Nome do Grupo:</label>
+    <input class="group-input" id="gname_${tid}" data-tid="${tid}" type="text"
+      placeholder="Ex: Grupo ${theme.tag.replace('Grupo ', '')} — Nomes dos alunos…"
+      value="${escHtml(gName)}" oninput="onGroupName(this)" />
+    <button class="btn btn-primary btn-sm" onclick="saveGroup('${tid}')">✓ Salvar</button>
+    <button class="btn btn-danger btn-sm" onclick="clearGroup('${tid}')">✕ Limpar</button>
+    ${sv ? `<span class="badge badge-green">Salvo</span>` : ''}
+  </div>
+
+  <div class="panel-header">
+    <div class="panel-header-left">
       <div class="panel-tag">${theme.tag}</div>
       <div class="panel-title">${theme.title}</div>
       <div class="panel-sub">${theme.sub}</div>
     </div>
+    <span class="badge ${grade.cls}" style="font-size:13px;padding:6px 14px">${grade.label}</span>
+  </div>
 
-    <div class="score-widget">
-      <div class="score-circle" style="border-color:${pct >= 70 ? 'var(--check-yes)' : pct >= 40 ? '#f5a623' : 'var(--check-no)'}">
-        <span class="val">${score.toFixed(1)}</span>
-        <span class="max">/${max}</span>
-      </div>
-      <div class="score-info">
-        <div class="score-label">Pontuação do Tema &nbsp;<span class="badge ${grade.cls}">${grade.label}</span></div>
-        <div class="score-grade">${score.toFixed(1)} pontos de ${max}</div>
-        <div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%"></div></div>
-      </div>
+  <div class="score-strip">
+    <div class="score-card">
+      <div class="sc-label">📝 Conteúdo</div>
+      <div><span class="sc-val">${cs.toFixed(1)}</span><span class="sc-max">/10</span></div>
+      <div class="sc-bar-wrap"><div class="sc-bar bar-content" style="width:${cs * 10}%"></div></div>
     </div>
+    <div class="score-card">
+      <div class="sc-label">👥 Equipe</div>
+      <div><span class="sc-val">${ts.toFixed(1)}</span><span class="sc-max">/10</span></div>
+      <div class="sc-bar-wrap"><div class="sc-bar bar-team" style="width:${ts * 10}%"></div></div>
+    </div>
+    <div class="score-card highlight">
+      <div class="sc-label">🏆 Nota Final <small style="color:var(--muted)">(70%+30%)</small></div>
+      <div><span class="sc-val" style="color:var(--accent3)">${fin.toFixed(2)}</span><span class="sc-max">/10</span></div>
+      <div class="sc-bar-wrap"><div class="sc-bar bar-final" style="width:${fin * 10}%"></div></div>
+    </div>
+  </div>
 
-    <div class="section">
-      <div class="section-title">Requisitos do Tema</div>
-      <div class="checklist">
-        ${theme.criteria.map(c => `
-          <div class="check-item${checks[c.id] ? ' checked' : ''}" data-theme="${theme.id}" data-crit="${c.id}">
-            <div class="check-box">${checks[c.id] ? '✓' : ''}</div>
-            <div class="check-label">
-              <strong>${c.label}</strong>
-              <span>${c.desc}</span>
-            </div>
-            <div class="check-pts">${c.pts.toFixed(1)} pt${c.pts !== 1 ? 's' : ''}</div>
+  <!-- CONTENT CHECKLIST -->
+  <div class="section content-section">
+    <div class="section-title">Requisitos do Conteúdo</div>
+    <div class="checklist">
+      ${theme.criteria.map(c => `
+        <div class="check-item${cc[c.id] ? ' checked' : ''}" data-tid="${tid}" data-type="content" data-cid="${c.id}">
+          <div class="check-box">${cc[c.id] ? '✓' : ''}</div>
+          <div class="check-label">
+            <strong>${c.label}</strong>
+            <span>${c.desc}</span>
           </div>
-        `).join('')}
-      </div>
+          <div class="check-pts">${c.pts.toFixed(1)}pt</div>
+        </div>`).join('')}
     </div>
+    <textarea class="notes-area" data-tid="${tid}" data-type="content"
+      placeholder="Observações sobre o conteúdo apresentado…" style="margin-top:14px">${escHtml(working[tid].content.notes)}</textarea>
+  </div>
 
-    <div class="section">
-      <div class="section-title">Observações do Avaliador</div>
-      <textarea class="notes-area" data-theme="${theme.id}" placeholder="Anotações específicas sobre este tema…">${notes}</textarea>
+  <div class="section-divider">Avaliação de Equipe</div>
+
+  <!-- TEAM CHECKLIST -->
+  <div class="section team-section">
+    <div class="section-title">Trabalho em Equipe & Apresentação</div>
+    <div class="checklist">
+      ${TEAM_CRITERIA.map(c => `
+        <div class="check-item team-item${tc[c.id] ? ' checked' : ''}" data-tid="${tid}" data-type="team" data-cid="${c.id}">
+          <div class="check-box">${tc[c.id] ? '✓' : ''}</div>
+          <div class="check-label">
+            <strong>${c.label}</strong>
+            <span>${c.desc}</span>
+          </div>
+          <div class="check-pts">${c.pts.toFixed(1)}pt</div>
+        </div>`).join('')}
     </div>
+    <textarea class="notes-area" data-tid="${tid}" data-type="team"
+      placeholder="Observações sobre a apresentação e trabalho em equipe…" style="margin-top:14px">${escHtml(working[tid].team.notes)}</textarea>
   </div>`;
         }
 
-        function renderTeamPanel() {
-            const { score, max } = calcTeamScore();
-            const pct = (score / max) * 100;
-            const grade = getGrade(score);
-            const checks = current.data['team']?.checks || {};
-            const notes = current.data['team']?.notes || '';
+        function renderResumo() {
+            const keys = Object.keys(saved);
 
             return `
-  <div class="panel active">
-    <div class="panel-header">
-      <div class="panel-tag">Avaliação de Equipe</div>
-      <div class="panel-title">Trabalho em Equipe</div>
-      <div class="panel-sub">Apresentação e participação do grupo</div>
-    </div>
-
-    <div class="score-widget">
-      <div class="score-circle" style="border-color:${pct >= 70 ? 'var(--check-yes)' : pct >= 40 ? '#f5a623' : 'var(--check-no)'}">
-        <span class="val">${score.toFixed(1)}</span>
-        <span class="max">/${max}</span>
-      </div>
-      <div class="score-info">
-        <div class="score-label">Pontuação de Equipe &nbsp;<span class="badge ${grade.cls}">${grade.label}</span></div>
-        <div class="score-grade">${score.toFixed(1)} pontos de ${max}</div>
-        <div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%"></div></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Critérios de Equipe</div>
-      <div class="checklist">
-        ${TEAM_CRITERIA.map(c => `
-          <div class="check-item${checks[c.id] ? ' checked' : ''}" data-theme="team" data-crit="${c.id}">
-            <div class="check-box">${checks[c.id] ? '✓' : ''}</div>
-            <div class="check-label">
-              <strong>${c.label}</strong>
-              <span>${c.desc}</span>
-            </div>
-            <div class="check-pts">${c.pts.toFixed(1)} pt${c.pts !== 1 ? 's' : ''}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Observações Gerais do Avaliador</div>
-      <textarea class="notes-area" data-theme="team" placeholder="Anotações sobre a apresentação e trabalho em equipe…">${notes}</textarea>
-    </div>
-  </div>`;
-        }
-
-        function renderResumoPanel() {
-            const grupos = Object.keys(savedGroups);
-
-            return `
-  <div class="panel active">
-    <div class="panel-header">
+  <div class="panel-header">
+    <div class="panel-header-left">
       <div class="panel-tag">Painel Geral</div>
       <div class="panel-title">Resumo de Todas as Avaliações</div>
-      <div class="panel-sub">Visão consolidada de todos os grupos avaliados</div>
+      <div class="panel-sub">Visão consolidada — ${keys.length} grupo${keys.length !== 1 ? 's' : ''} avaliado${keys.length !== 1 ? 's' : ''}</div>
     </div>
+  </div>
 
-    ${grupos.length === 0 ? `
+  ${keys.length === 0 ? `
+    <div class="resumo-section">
       <div class="empty-state">
-        <div class="icon">📋</div>
-        <div>Nenhum grupo avaliado ainda.<br>Preencha os critérios e clique em <strong>Salvar Avaliação</strong>.</div>
+        <div class="empty-icon">📋</div>
+        Nenhum grupo salvo ainda.<br>
+        Abra cada aba, avalie e clique em <strong>✓ Salvar</strong>.
       </div>
-    ` : `
-      <div class="section">
-        <div class="section-title">Grupos Avaliados — ${grupos.length} grupo${grupos.length !== 1 ? 's' : ''}</div>
-        <table class="all-groups-table">
+    </div>
+  ` : `
+    <div class="resumo-section">
+      <div class="resumo-table-wrap">
+        <table class="resumo-table">
           <thead>
             <tr>
-              <th>Grupo</th>
-              ${THEMES.map(t => `<th>${t.tag}</th>`).join('')}
+              <th>Tema / Grupo</th>
+              <th>Alunos</th>
+              <th>Conteúdo</th>
               <th>Equipe</th>
-              <th>Média Conteúdo</th>
               <th>Nota Final</th>
               <th>Conceito</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            ${grupos.map(gName => {
-                const g = savedGroups[gName];
-                const themeScores = THEMES.map(t => {
-                    const checks = g[t.id]?.checks || {};
-                    let s = 0;
-                    t.criteria.forEach(c => { if (checks[c.id]) s += c.pts; });
-                    return Math.min(s, 10);
-                });
-                const teamScore = (() => {
-                    const checks = g['team']?.checks || {};
-                    let s = 0;
-                    TEAM_CRITERIA.forEach(c => { if (checks[c.id]) s += c.pts; });
-                    return Math.min(s, 10);
-                })();
-                const avg = themeScores.reduce((a, b) => a + b, 0) / themeScores.length;
-                const final = +(avg * 0.7 + teamScore * 0.3).toFixed(2);
-                const grade = getGrade(final);
+            ${THEMES.map(t => {
+                if (!saved[t.id]) return '';
+                const s = saved[t.id];
+                // recalc from saved
+                let cs = 0;
+                t.criteria.forEach(c => { if (s.content?.checks?.[c.id]) cs += c.pts; });
+                cs = +Math.min(cs, 10).toFixed(2);
+                let ts = 0;
+                TEAM_CRITERIA.forEach(c => { if (s.team?.checks?.[c.id]) ts += c.pts; });
+                ts = +Math.min(ts, 10).toFixed(2);
+                const fin = +(cs * 0.7 + ts * 0.3).toFixed(2);
+                const grade = getGrade(fin);
+                const gName = s.groupName || '—';
                 return `<tr>
-                <td><strong>${gName}</strong></td>
-                ${themeScores.map(s => `<td>${s.toFixed(1)}</td>`).join('')}
-                <td>${teamScore.toFixed(1)}</td>
-                <td>${avg.toFixed(2)}</td>
-                <td><strong>${final.toFixed(2)}</strong></td>
+                <td class="col-name"><span class="badge badge-blue">${t.tag}</span><br><small style="color:var(--muted)">${t.title}</small></td>
+                <td>${escHtml(gName)}</td>
+                <td>${cs.toFixed(1)}</td>
+                <td>${ts.toFixed(1)}</td>
+                <td class="col-final">${fin.toFixed(2)}</td>
                 <td><span class="badge ${grade.cls}">${grade.label}</span></td>
+                <td><button class="del-btn" onclick="deleteSaved('${t.id}')">🗑</button></td>
               </tr>`;
             }).join('')}
           </tbody>
         </table>
       </div>
-    `}
-  </div>`;
+    </div>
+  `}`;
         }
 
-        // ════════════════════════════════════════════
-        // EVENTS
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  EVENTS
+        // ══════════════════════════════════════════════════════
 
-        function attachCheckEvents() {
-            document.querySelectorAll('.check-item').forEach(el => {
+        function attachEvents() {
+            // Checkboxes
+            document.querySelectorAll('.check-item[data-tid]').forEach(el => {
                 el.addEventListener('click', () => {
-                    const theme = el.dataset.theme;
-                    const crit = el.dataset.crit;
-                    current.data[theme].checks[crit] = !current.data[theme].checks[crit];
+                    const { tid, type, cid } = el.dataset;
+                    working[tid][type].checks[cid] = !working[tid][type].checks[cid];
                     renderTabs();
                     renderContent();
                 });
             });
 
-            document.querySelectorAll('.notes-area').forEach(el => {
+            // Textareas
+            document.querySelectorAll('.notes-area[data-tid]').forEach(el => {
                 el.addEventListener('input', () => {
-                    current.data[el.dataset.theme].notes = el.value;
+                    working[el.dataset.tid][el.dataset.type].notes = el.value;
                 });
             });
+        }
+
+        function onGroupName(el) {
+            working[el.dataset.tid].groupName = el.value;
         }
 
         function switchTab(id) {
@@ -1095,145 +1134,113 @@
             renderContent();
         }
 
-        function onGroupChange() {
-            current.groupName = document.getElementById('groupName').value;
-        }
-
-        function saveGroup() {
-            const name = document.getElementById('groupName').value.trim();
-            if (!name) { showToast('⚠ Informe o nome do grupo!'); return; }
-            savedGroups[name] = JSON.parse(JSON.stringify(current.data));
-            localStorage.setItem('lp_groups', JSON.stringify(savedGroups));
-            refreshGroupSelect();
-            showToast(`✓ Grupo "${name}" salvo!`);
-            renderContent(); // refresh resumo if active
-        }
-
-        function clearCurrent() {
-            current.data = buildEmptyData();
-            document.getElementById('groupName').value = '';
-            current.groupName = '';
+        function saveGroup(tid) {
+            saved[tid] = JSON.parse(JSON.stringify(working[tid]));
+            localStorage.setItem('lp_v2', JSON.stringify(saved));
             renderTabs();
             renderContent();
-            showToast('Avaliação limpa.');
+            showToast(`✓ ${THEMES.find(t => t.id === tid).tag} salvo!`);
         }
 
-        function loadGroup(name) {
-            if (!name) return;
-            const g = savedGroups[name];
-            if (!g) return;
-            current.groupName = name;
-            current.data = JSON.parse(JSON.stringify(g));
-            document.getElementById('groupName').value = name;
+        function clearGroup(tid) {
+            const theme = THEMES.find(t => t.id === tid);
+            working[tid] = { groupName: '', content: { checks: {}, notes: '' }, team: { checks: {}, notes: '' } };
+            theme.criteria.forEach(c => { working[tid].content.checks[c.id] = false; });
+            TEAM_CRITERIA.forEach(c => { working[tid].team.checks[c.id] = false; });
             renderTabs();
             renderContent();
-            showToast(`Grupo "${name}" carregado.`);
+            showToast('Avaliação limpa (não salva).');
         }
 
-        function refreshGroupSelect() {
-            const sel = document.getElementById('groupSelect');
-            const opts = Object.keys(savedGroups).map(n => `<option value="${n}">${n}</option>`).join('');
-            sel.innerHTML = `<option value="">— Carregar grupo salvo —</option>${opts}`;
+        function deleteSaved(tid) {
+            delete saved[tid];
+            localStorage.setItem('lp_v2', JSON.stringify(saved));
+            renderTabs();
+            renderContent();
+            showToast('Avaliação removida.');
         }
 
-        // ════════════════════════════════════════════
-        // EXPORT EXCEL
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  EXPORT EXCEL
+        // ══════════════════════════════════════════════════════
 
         function exportExcel() {
-            const grupos = Object.keys(savedGroups);
-            if (grupos.length === 0) { showToast('Nenhum grupo salvo para exportar!'); return; }
+            const keys = Object.keys(saved);
+            if (keys.length === 0) { showToast('Nenhum grupo salvo para exportar!'); return; }
 
             const wb = XLSX.utils.book_new();
 
-            // ── Sheet 1: Resumo Geral ──
-            const resumoData = [
-                ['AVALIAÇÃO — LÓGICA DE PROGRAMAÇÃO'],
-                [],
-                ['Grupo', ...THEMES.map(t => t.tag), 'Equipe', 'Média Conteúdo', 'Nota Final (70/30)', 'Conceito']
-            ];
-            grupos.forEach(gName => {
-                const g = savedGroups[gName];
-                const themeScores = THEMES.map(t => {
-                    const checks = g[t.id]?.checks || {};
-                    let s = 0;
-                    t.criteria.forEach(c => { if (checks[c.id]) s += c.pts; });
-                    return +Math.min(s, 10).toFixed(2);
-                });
-                const teamScore = (() => {
-                    const checks = g['team']?.checks || {};
-                    let s = 0;
-                    TEAM_CRITERIA.forEach(c => { if (checks[c.id]) s += c.pts; });
-                    return +Math.min(s, 10).toFixed(2);
-                })();
-                const avg = +(themeScores.reduce((a, b) => a + b, 0) / themeScores.length).toFixed(2);
-                const final = +(avg * 0.7 + teamScore * 0.3).toFixed(2);
-                const grade = getGrade(final).label;
-                resumoData.push([gName, ...themeScores, teamScore, avg, final, grade]);
+            // ── Resumo Geral ──
+            const header = ['Tema', 'Grupo / Alunos', 'Nota Conteúdo', 'Nota Equipe', 'Nota Final', 'Conceito'];
+            const rows = [['AVALIAÇÃO — LÓGICA DE PROGRAMAÇÃO'], [], header];
+
+            THEMES.forEach(t => {
+                if (!saved[t.id]) return;
+                const s = saved[t.id];
+                let cs = 0;
+                t.criteria.forEach(c => { if (s.content?.checks?.[c.id]) cs += c.pts; });
+                cs = +Math.min(cs, 10).toFixed(2);
+                let ts = 0;
+                TEAM_CRITERIA.forEach(c => { if (s.team?.checks?.[c.id]) ts += c.pts; });
+                ts = +Math.min(ts, 10).toFixed(2);
+                const fin = +(cs * 0.7 + ts * 0.3).toFixed(2);
+                rows.push([`${t.tag} — ${t.title}`, s.groupName || '', cs, ts, fin, getGrade(fin).label]);
             });
 
-            const wsResumo = XLSX.utils.aoa_to_sheet(resumoData);
-            wsResumo['!cols'] = [{ wch: 28 }, ...THEMES.map(() => ({ wch: 10 })), { wch: 10 }, { wch: 18 }, { wch: 20 }, { wch: 14 }];
-            XLSX.utils.book_append_sheet(wb, wsResumo, 'Resumo Geral');
+            const ws = XLSX.utils.aoa_to_sheet(rows);
+            ws['!cols'] = [{ wch: 30 }, { wch: 36 }, { wch: 16 }, { wch: 14 }, { wch: 14 }, { wch: 14 }];
+            XLSX.utils.book_append_sheet(wb, ws, 'Resumo Geral');
 
             // ── Sheet per group ──
-            grupos.forEach(gName => {
-                const g = savedGroups[gName];
-                const rows = [
-                    [`Grupo: ${gName}`],
+            THEMES.forEach(t => {
+                if (!saved[t.id]) return;
+                const s = saved[t.id];
+                const sheetRows = [
+                    [`${t.tag} — ${t.title}`],
+                    [`Alunos: ${s.groupName || ''}`],
                     [],
-                    ['Tema', 'Critério', 'Pontos Possíveis', 'Obtido', 'Observações']
+                    ['CONTEÚDO', 'Critério', 'Pts Possíveis', 'Pts Obtidos']
                 ];
-
-                THEMES.forEach(t => {
-                    const checks = g[t.id]?.checks || {};
-                    const notes = g[t.id]?.notes || '';
-                    t.criteria.forEach((c, i) => {
-                        rows.push([
-                            i === 0 ? t.title : '',
-                            c.label,
-                            c.pts,
-                            checks[c.id] ? c.pts : 0,
-                            i === 0 ? notes : ''
-                        ]);
-                    });
-                    const total = t.criteria.reduce((s, c) => s + (checks[c.id] ? c.pts : 0), 0);
-                    rows.push(['', `TOTAL ${t.tag}`, 10, +Math.min(total, 10).toFixed(2), '']);
-                    rows.push([]);
+                t.criteria.forEach(c => {
+                    sheetRows.push(['', c.label, c.pts, s.content?.checks?.[c.id] ? c.pts : 0]);
                 });
+                let cs = 0;
+                t.criteria.forEach(c => { if (s.content?.checks?.[c.id]) cs += c.pts; });
+                sheetRows.push(['', 'TOTAL CONTEÚDO', 10, +Math.min(cs, 10).toFixed(2)]);
+                if (s.content?.notes) sheetRows.push(['Obs. Conteúdo:', s.content.notes]);
+                sheetRows.push([]);
 
-                // Team
-                const teamChecks = g['team']?.checks || {};
-                const teamNotes = g['team']?.notes || '';
-                TEAM_CRITERIA.forEach((c, i) => {
-                    rows.push(['Equipe', c.label, c.pts, teamChecks[c.id] ? c.pts : 0, i === 0 ? teamNotes : '']);
+                sheetRows.push(['EQUIPE', 'Critério', 'Pts Possíveis', 'Pts Obtidos']);
+                TEAM_CRITERIA.forEach(c => {
+                    sheetRows.push(['', c.label, c.pts, s.team?.checks?.[c.id] ? c.pts : 0]);
                 });
-                const teamTotal = TEAM_CRITERIA.reduce((s, c) => s + (teamChecks[c.id] ? c.pts : 0), 0);
-                rows.push(['', 'TOTAL EQUIPE', 10, +Math.min(teamTotal, 10).toFixed(2), '']);
-                rows.push([]);
+                let ts = 0;
+                TEAM_CRITERIA.forEach(c => { if (s.team?.checks?.[c.id]) ts += c.pts; });
+                sheetRows.push(['', 'TOTAL EQUIPE', 10, +Math.min(ts, 10).toFixed(2)]);
+                if (s.team?.notes) sheetRows.push(['Obs. Equipe:', s.team.notes]);
+                sheetRows.push([]);
 
-                const themeScores = THEMES.map(t => {
-                    let s = 0;
-                    t.criteria.forEach(c => { if (g[t.id]?.checks?.[c.id]) s += c.pts; });
-                    return Math.min(s, 10);
-                });
-                const avg = themeScores.reduce((a, b) => a + b, 0) / themeScores.length;
-                const final = +(avg * 0.7 + Math.min(teamTotal, 10) * 0.3).toFixed(2);
-                rows.push(['', 'NOTA FINAL (70% conteúdo + 30% equipe)', '', final, '']);
+                const fin = +(Math.min(cs, 10) * 0.7 + Math.min(ts, 10) * 0.3).toFixed(2);
+                sheetRows.push(['NOTA FINAL', '(70% conteúdo + 30% equipe)', '', fin]);
+                sheetRows.push(['Conceito', getGrade(fin).label]);
 
-                const ws = XLSX.utils.aoa_to_sheet(rows);
-                ws['!cols'] = [{ wch: 26 }, { wch: 38 }, { wch: 18 }, { wch: 12 }, { wch: 40 }];
-                const sheetName = gName.substring(0, 31).replace(/[\\/:*?\[\]]/g, '_');
-                XLSX.utils.book_append_sheet(wb, ws, sheetName);
+                const wsG = XLSX.utils.aoa_to_sheet(sheetRows);
+                wsG['!cols'] = [{ wch: 18 }, { wch: 40 }, { wch: 16 }, { wch: 14 }];
+                const sName = `${t.tag}`.substring(0, 31).replace(/[\\/:*?\[\]]/g, '_');
+                XLSX.utils.book_append_sheet(wb, wsG, sName);
             });
 
-            XLSX.writeFile(wb, `avaliacao_logica_programacao.xlsx`);
-            showToast('✓ Excel exportado com sucesso!');
+            XLSX.writeFile(wb, 'avaliacao_logica_programacao.xlsx');
+            showToast('✓ Excel exportado!');
         }
 
-        // ════════════════════════════════════════════
-        // TOAST
-        // ════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        //  UTILS
+        // ══════════════════════════════════════════════════════
+
+        function escHtml(s) {
+            return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
         let toastTimer;
         function showToast(msg) {
@@ -1244,11 +1251,7 @@
             toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
         }
 
-        // ════════════════════════════════════════════
-        // INIT
-        // ════════════════════════════════════════════
-
-        refreshGroupSelect();
+        // ── INIT ──
         renderTabs();
         renderContent();
     </script>
