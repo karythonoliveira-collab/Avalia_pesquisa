@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* ── VARIÁVEIS DE TEMA ─────────────────────────────────────── */
+:root {
+  --bg-page:    #020617;            /* slate-950  */
+  --bg-card:    #0f172a;            /* slate-900  */
+  --bg-input:   rgb(2 6 23 / 0.6);  /* slate-950/60 */
+  --bd-card:    #1e293b;            /* slate-800  */
+  --bd-input:   #1e293b;
+  --tx-base:    #f1f5f9;            /* slate-100  */
+  --tx-muted:   #94a3b8;            /* slate-400  */
+  --tx-subtle:  #64748b;            /* slate-500  */
+  --header-h:   73px;
+}
+
+.theme-light {
+  --bg-page:   #edfdf8;   /* teal extralight — página recua                */
+  --bg-card:   #ffffff;   /* branco puro                                   */
+  --bg-input:  #f5fefb;   /* quase branco com toque teal                   */
+  --bd-card:   #9ce9de;   /* #9ce9de — shade claro da paleta               */
+  --bd-input:  #57bd9e;   /* #57bd9e — shade médio da paleta               */
+  --tx-base:   #006d46;   /* #006d46 — verde mais escuro, alto contraste   */
+  --tx-muted:  #008d62;   /* #008d62 — verde médio-escuro                  */
+  --tx-subtle: #2ca880;   /* #2ca880 — verde médio                         */
+}
+
+/* ── RESET BASE ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-page);
+  color: var(--tx-base);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ─────────────────────────────────────────────── */
+::-webkit-scrollbar          { width: 6px; height: 6px; }
+::-webkit-scrollbar-track    { background: #020617; }
+::-webkit-scrollbar-thumb    { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ── ANIMAÇÕES GLOBAIS ─────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── RESPONSIVIDADE: SIDEBAR MOBILE ───────────────────────── */
+@media (max-width: 767px) {
+  .app-sidebar {
+    position: fixed !important;
+    top: var(--header-h);
+    left: 0;
+    bottom: 0;
+    z-index: 50;
+    width: 256px !important;
+    transform: translateX(-100%) !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .app-sidebar.sidebar-open {
+    transform: translateX(0) !important;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    top: var(--header-h);
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 40;
+    animation: fadeIn 0.2s ease forwards;
+  }
+
+  .app-main {
+    margin-left: 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar-overlay { display: none !important; }
+}
